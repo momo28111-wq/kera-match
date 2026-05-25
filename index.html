@@ -68,7 +68,7 @@ textarea::placeholder{color:var(--muted);font-size:11px;}
 <body>
 <header>
   <div class="logo">KERA <span>/ MATCH</span></div>
-  <div class="badge">3,235 produits · IA</div><button onclick="showKeyModal()" style="background:transparent;border:1px solid #2A2A2A;color:#888;font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;cursor:pointer;border-radius:2px;margin-left:8px;">🔑 CLÉ</button>
+  <div class="badge">3,235 produits · IA</div><button onclick="showKeyModal()" style="background:transparent;border:1px solid #2A2A2A;color:#888;font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;cursor:pointer;border-radius:2px;margin-left:8px;">⚙️</button>
 </header>
 <main>
   <div class="panel">
@@ -227,7 +227,6 @@ async function handleFile(input) {
 }
 
 async function analyze(){
-  if(!getApiKey()){showKeyModal();return;}
   const msg=document.getElementById("inputMsg").value.trim();
   if(!msg)return;
   const btn=document.getElementById("analyzeBtn");
@@ -456,8 +455,8 @@ ITEM|quantite|nom exact catalogue|prep_note|H ou M ou L`;
 
     const user="CATALOGUE ("+cands.length+" produits) :\n"+catList+"\n\nMESSAGE CLIENT :\n"+msg;
 
-    const resp=await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST",headers:{"Content-Type":"application/json","x-api-key":getApiKey(),"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    const resp=await fetch("https://kera-api.momo28111.workers.dev",{
+      method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({model:"claude-sonnet-4-5",max_tokens:6000,system:system,messages:[{role:"user",content:user}]})
     });
     const data=await resp.json();
